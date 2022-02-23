@@ -79,11 +79,14 @@ int main()
     // build and compile shaders
     // -------------------------
     Shader ourShader("1.model_loading.vs", "1.model_loading.fs");
+    Shader groundShader("ground.vs", "ground.fs");
 
     // load models
     // -----------
     // Model ourModel(FileSystem::getPath("resources/objects/backpack/backpack.obj"));
     Model ourModel(FileSystem::getPath("resources/objects/mary/Marry.obj"));
+    
+    Model floor(FileSystem::getPath("resources/objects/floor/floor.obj"));
 
     
     // draw in wireframe
@@ -124,6 +127,12 @@ int main()
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
 
+        groundShader.use();
+        groundShader.setMat4("projection", projection);
+        groundShader.setMat4("model", model);
+        groundShader.setMat4("view", view);
+        
+        floor.Draw(groundShader);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

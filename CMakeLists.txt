@@ -64,7 +64,7 @@ set(CHAPTERS
 )
 
 set(games202
-	0.test
+	0.homework0
 	1.pcf
 )
 
