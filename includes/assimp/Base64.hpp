@@ -3,7 +3,7 @@
 Open Asset Import Library (assimp)
 ---------------------------------------------------------------------------
 
-Copyright (c) 2006-2016, assimp team
+Copyright (c) 2006-2022, assimp team
 
 All rights reserved.
 
@@ -38,15 +38,31 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ---------------------------------------------------------------------------
 */
-#ifndef AI_DEBUG_H_INC
-#define AI_DEBUG_H_INC
 
-#ifdef ASSIMP_BUILD_DEBUG
-#   include <assert.h>
-#   define  ai_assert(expression) assert(expression)
-#else
-#   define  ai_assert(expression)
-#endif
+#pragma once
+#ifndef AI_BASE64_HPP_INC
+#define AI_BASE64_HPP_INC
 
+#include <stdint.h>
+#include <vector>
+#include <string>
 
-#endif
+namespace Assimp {
+namespace Base64 {
+
+/// @brief Will encode the given 
+/// @param in 
+/// @param inLength 
+/// @param out 
+void Encode(const uint8_t *in, size_t inLength, std::string &out);
+void Encode(const std::vector<uint8_t>& in, std::string &out);
+std::string Encode(const std::vector<uint8_t>& in);
+
+size_t Decode(const char *in, size_t inLength, uint8_t *&out);
+size_t Decode(const std::string& in, std::vector<uint8_t>& out);
+std::vector<uint8_t> Decode(const std::string& in);
+
+} // namespace Base64
+} // namespace Assimp
+
+#endif // AI_BASE64_HPP_INC

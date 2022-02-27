@@ -3,7 +3,7 @@
 Open Asset Import Library (assimp)
 ---------------------------------------------------------------------------
 
-Copyright (c) 2006-2016, assimp team
+Copyright (c) 2006-2022, assimp team
 
 All rights reserved.
 
@@ -38,15 +38,47 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ---------------------------------------------------------------------------
 */
-#ifndef AI_DEBUG_H_INC
-#define AI_DEBUG_H_INC
 
-#ifdef ASSIMP_BUILD_DEBUG
-#   include <assert.h>
-#   define  ai_assert(expression) assert(expression)
-#else
-#   define  ai_assert(expression)
+/** @file OBJMATERIAL.h
+ *  @brief Obj-specific material macros
+ *  
+ */
+
+#ifndef AI_OBJMATERIAL_H_INC
+#define AI_OBJMATERIAL_H_INC
+
+#ifdef __GNUC__
+#   pragma GCC system_header
 #endif
+
+#include <assimp/material.h>
+
+// ---------------------------------------------------------------------------
+
+// the original illum property
+#define AI_MATKEY_OBJ_ILLUM "$mat.illum", 0, 0
+
+// ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// Pure key names for all obj texture-related properties
+//! @cond MATS_DOC_FULL
+
+// support for bump -bm 
+#define _AI_MATKEY_OBJ_BUMPMULT_BASE "$tex.bumpmult"
+//! @endcond
+
+// ---------------------------------------------------------------------------
+#define AI_MATKEY_OBJ_BUMPMULT(type, N) _AI_MATKEY_OBJ_BUMPMULT_BASE, type, N
+
+//! @cond MATS_DOC_FULL
+#define AI_MATKEY_OBJ_BUMPMULT_NORMALS(N) \
+    AI_MATKEY_OBJ_BUMPMULT(aiTextureType_NORMALS, N)
+
+#define AI_MATKEY_OBJ_BUMPMULT_HEIGHT(N) \
+    AI_MATKEY_OBJ_BUMPMULT(aiTextureType_HEIGHT, N)
+
+//! @endcond
 
 
 #endif
